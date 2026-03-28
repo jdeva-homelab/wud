@@ -7,10 +7,7 @@ services:
     environment:
       - TZ=${TZ}
       - WUD_TRIGGER_HTTP_NTFY_URL=${NTFY_URL}/${NTFY_TOPIC}
-      - WUD_TRIGGER_HTTP_NTFY_MOCK=false
-      - WUD_TRIGGER_HTTP_NTFY_HEADERS_AUTHORIZATION=Bearer ${NTFY_TOKEN}
-      - WUD_TRIGGER_HTTP_NTFY_HEADERS_X-TITLE=WUD
-      - WUD_TRIGGER_HTTP_NTFY_HEADERS_CONTENT-TYPE=text/plain
+      - WUD_TRIGGER_HTTP_NTFY_HEADERS_Authorization=Bearer ${NTFY_TOKEN}
       - WUD_TRIGGER_HTTP_NTFY_BODY=Container {{app}} updated to {{version}}
     restart: unless-stopped
     security_opt:
