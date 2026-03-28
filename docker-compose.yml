@@ -14,6 +14,21 @@ services:
       - frontend
       - wud-net
 
+  docknify:
+    image: docker:cli
+    container_name: docknify
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - NTFY_URL=${NTFY_URL}
+      - NTFY_TOPIC=${NTFY_TOPIC}
+      - NTFY_TOKEN=${NTFY_TOKEN}
+    command: >
+      sh -c "apk add --no-cache curl jq && docker events --filter 'type=container' --filter 'event=die' --filter 'event=kill' --format '{{json .}}' | while read event; do name=$$(echo $$event | jq -r '.Actor.Attributes.name'); curl -H 'Authorization: Bearer $$NTFY_TOKEN' -H 'X-Title: Container Stopped' -H 'Tags: warning,tractor' -d \"Container $$name was stopped or killed!\" $$NTFY_URL/$$NTFY_TOPIC; done"
+
 networks:
   frontend:
     external: true
