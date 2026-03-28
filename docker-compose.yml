@@ -1,0 +1,24 @@
+services:
+  wud:
+    image: fmartinou/whats-up-docker
+    container_name: wud
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=${TZ}
+      - WUD_TRIGGER_NTFY_MYALERT_URL=${NTFY_URL}
+      - WUD_TRIGGER_NTFY_MYALERT_TEMPLATE="Container {{app}} updated to {{version}}"
+      - WUD_TRIGGER_NTFY_MYALERT_AUTHORIZATION=Bearer ${NTFY_TOKEN}
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - frontend
+      - wud-net
+
+networks:
+  frontend:
+    external: true
+  wud-net:
+    name: wud-net
+    driver: bridge
