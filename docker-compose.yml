@@ -11,8 +11,6 @@ services:
       - WUD_TRIGGER_NTFY_MYALERT_AUTH_TOKEN=${NTFY_TOKEN}
       - WUD_TRIGGER_NTFY_MYALERT_TITLE="WUD"
       - WUD_TRIGGER_NTFY_MYALERT_MESSAGE="Container {{app}} updated to {{version}}"
-      - WUD_AUTH_BASIC_USER=${WUD_USER}
-      - WUD_AUTH_BASIC_PASS=${WUD_PASS}
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
