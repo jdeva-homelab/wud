@@ -6,8 +6,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ=${TZ}
-      - WUD_TRIGGER_HTTP_NTFY_URL=${NTFY_URL}/${NTFY_TOPIC}
-      - WUD_TRIGGER_HTTP_NTFY_HEADERS_Authorization=Bearer ${NTFY_TOKEN}
+      - WUD_TRIGGER_HTTP_NTFY_URL=${NTFY_URL}/${NTFY_TOPIC}?auth=${NTFY_TOKEN}
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
